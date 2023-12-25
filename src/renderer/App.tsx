@@ -1,9 +1,13 @@
-function App(){
+import { PlayerProvider } from "./src/contexts/PlayerContext";
+import { RouterProvider } from "./src/contexts/Router";
+import "./global.css";
+
+function App(): JSX.Element {
   return (
-    <div>
-      HELLO 
-    </div>
+    <PlayerProvider>
+      <RouterProvider />
+    </PlayerProvider>
   )
 }
 
-export default App;
+export default App
