@@ -9,7 +9,7 @@ type PathProps = string[];
 
 function UpdateLibrary() {
   const { config } = window.api;
-  const { ipcRenderer } = window.electron;
+  const { OpenFolders } = window.api.electron;
   const [pathsFolderSource, setPathsFolderSource] = useState<PathProps>(config("library_source"));
   const [isUpdating, setIsUpdating] = useState(false);
 
@@ -30,7 +30,7 @@ function UpdateLibrary() {
 
   async function addFolders() {
     const options = { properties: ["multiSelections", "openDirectory"] };
-    const paths = await ipcRenderer.invoke("open-dialog", options);
+    const paths = await OpenFolders(options);
     const uniquePaths = union(pathsFolderSource, paths);
 
     config("library_source", uniquePaths);

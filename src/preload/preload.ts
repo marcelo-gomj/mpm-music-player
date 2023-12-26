@@ -1,13 +1,16 @@
-import { contextBridge } from "electron/renderer";
-import electron from "electron";
+import { contextBridge } from "electron";
+import { ipcRenderer } from "electron";
 import config from "./Services/ElectronStore";
 import howler from "./Services/Howler";
 import { verifyFoldersAndUpdateDatabase } from "./Services/Metadata";
 import { checkPath } from "./utils/AlbumCover";
 import prisma from "./Services/Prisma";
+import OpenFolders from "./utils/OpenFoldersSystem";
 
 const api = {
-  electron,
+  electron: {
+    OpenFolders
+  },
   howler,
   prisma,
   config,
@@ -21,4 +24,4 @@ declare global {
   }
 }
 
-contextBridge.exposeInMainWorld("api", api);
+contextBridge.exposeInMainWorld("api", api)
