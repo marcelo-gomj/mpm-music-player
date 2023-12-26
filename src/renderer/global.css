@@ -4,7 +4,13 @@
 
 * {
   user-select: none;
+  font-family: "Roboto Condensed";
 }
+
+html{
+  color: white;
+}
+
 .animation-open-modal{
   animation: modalOpen 0.3s ease;
 }
