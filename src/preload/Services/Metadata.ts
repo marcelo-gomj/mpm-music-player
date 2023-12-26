@@ -3,17 +3,14 @@ import { stat, readdir } from "fs/promises"
 import { filter, flatten, isNotNil, join, or, pipe, test } from "ramda";
 import { IAudioMetadata, parseFile } from "music-metadata";
 // import { prisma } from "./Prisma";
-import { Optional } from "@prisma/client/runtime/library";
-import sqlite from "./Drizzle";
-import { musics } from "../drizzle/schema"
 
 type PathsProps = (string | PathsProps | null)[];
-type LoggerStateProps = Optional<{
-  status: "INITIAL" | "SCANNING" | "CHECK_FILES" | "UPDATING" | "COMPLETED";
-  musicsTotal: number,
-  updateds: number,
-  erros: string[]
-}>
+type LoggerStateProps = {
+  status ?: "INITIAL" | "SCANNING" | "CHECK_FILES" | "UPDATING" | "COMPLETED";
+  musicsTotal ?: number,
+  updateds ?: number,
+  erros ?: string[]
+}
 
 type LoggerStateFunction = (logger: LoggerStateProps) => void;
 type T = any;
@@ -58,7 +55,7 @@ const upsertMetadataDatabase = (
 const extractFileMetadata = async (
   paths: string[],
   setLoggerUpdates: LoggerStateFunction
-) => {
+) : Promise<any> => {
   const updateds: ReturnType<typeof upsertMetadataDatabase>[] = []
 
   setLoggerUpdates({ status: 'CHECK_FILES' });
@@ -81,7 +78,7 @@ const extractFileMetadata = async (
 
   setLoggerUpdates({ status: 'UPDATING' });
 
-  await sqlite.insert(musics).values(updateds);
+  // await sqlite.insert(musics).values(updateds);
 
   setLoggerUpdates({ status: "COMPLETED" })
 
@@ -149,7 +146,7 @@ export const verifyFoldersAndUpdateDatabase = async (
 ) => {
   const sourceMusicsPaths = await verifyFolders(paths, subPath, stateLogger);
 
-  const errors = await extractFileMetadata(
+   extractFileMetadata(
     sanitazePaths(sourceMusicsPaths),
     stateLogger
   )

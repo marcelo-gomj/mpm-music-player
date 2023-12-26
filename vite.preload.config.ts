@@ -3,9 +3,9 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config
 export default defineConfig({
   build: {
-    rollupOptions : {
+    rollupOptions: {
       external: [
-        "better-sqlite3"
+        "@prisma/client"
       ]
     }
   }

@@ -10,11 +10,6 @@
     "sourceMap": true,
     "baseUrl": ".",
     "outDir": "dist",
-    "paths": {
-      "@renderer/*": [
-        "src/renderer/src/*"
-      ]
-    },
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
