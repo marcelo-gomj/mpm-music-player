@@ -1,4 +1,4 @@
-import { PlayerContext } from "@renderer/contexts/PlayerContext";
+import { PlayerContext } from "../../contexts/PlayerContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import HandleProgress from "./HandleProgressBar";
 

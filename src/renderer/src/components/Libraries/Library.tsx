@@ -16,7 +16,7 @@ import NoSourceLibrary from "./NoSourceLibrary";
 import { map, toPairs } from "ramda";
 import { useContext, useEffect, useState } from "react"
 import HeaderLibraryButton from "./HeaderLibraryButton"
-import { RouterContext } from "@renderer/contexts/Router"
+import { RouterContext } from "../../contexts/Router"
 
 const headerIcons = {
   "current": [CurrentAlbumIcon, <div>current</div>],
@@ -80,7 +80,7 @@ function LIbrarySection() {
 
   function checkHasDatabaseContent() {
     prisma.hasDatabaseContent().then(
-      ItemsTotal => setHasSourceDatabase(!!ItemsTotal)
+      (ItemsTotal : any) => setHasSourceDatabase(!!ItemsTotal)
     )
   }
 }

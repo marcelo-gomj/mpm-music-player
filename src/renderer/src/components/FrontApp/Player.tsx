@@ -1,10 +1,10 @@
-import { MusicMetadata } from "@renderer/types/metadatas";
+import { MusicMetadata } from "../../types/metadatas";
 import { useContext, useEffect, useState } from "react";
 import AlbumCover from "./AlbumCover";
 import TrackDetails from "./TrackDetails";
 import PlayerController from "./PlayerController";
 import MoreTools from "./MoreTools";
-import { PlayerContext } from "@renderer/contexts/PlayerContext";
+import { PlayerContext } from "../../contexts/PlayerContext";
 
 type MusicProps = MusicMetadata | null;
 
@@ -63,7 +63,7 @@ function Player() {
 				title,
 				album,
 				artist,
-				mimeType: picture ? picture[0].format : picture,
+				// mimeType: picture ? picture[0].format : picture,
 				track: track.no,
 				duration: meta.format.duration,
 				srcCover: image

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ContextHowl } from "@renderer/types/howlerType";
+import { ContextHowl } from "../../types/howlerType";
 
 //@ts-ignore
 import Play from "../../assets/play.svg?react"
@@ -11,7 +11,7 @@ import { map } from "ramda";
 function PlayButton({ ctx : { playQueue, queueGlobal, howlerGlobal} } : ContextHowl){
   const [isPlaying, setIsPlaying] = useState(false);
   const { setPlay, setPause } = window.api.howler;
-  const { libraryChecker } = window.api
+  // const { libraryChecker } = window.api
 
   useEffect(() => {
     if(!howlerGlobal) return;
@@ -43,12 +43,12 @@ function PlayButton({ ctx : { playQueue, queueGlobal, howlerGlobal} } : ContextH
     if(!queueGlobal.length){
       const PATH_BASE = 'D:\\lib';
 
-      const paths = map(
-        (path) => (PATH_BASE + '\\' + path),
-        libraryChecker(PATH_BASE)
-      )
+      // const paths = map(
+      //   (path) => (PATH_BASE + '\\' + path),
+      //   libraryChecker(PATH_BASE)
+      // )
 
-      playQueue(0, paths)
+      // playQueue(0, paths)
 
       return;
     }

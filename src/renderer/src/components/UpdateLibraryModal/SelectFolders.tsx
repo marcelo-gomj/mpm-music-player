@@ -1,6 +1,6 @@
 //@ts-ignore
 import DeletePathIcon from "../../assets/Close.svg?react";
-import { ModalContext } from "@renderer/contexts/ModalContainer";
+import { ModalContext } from "../../contexts/ModalContainer";
 import { useContext, useEffect, useState } from "react";
 
 type SelectFoldersProps = {

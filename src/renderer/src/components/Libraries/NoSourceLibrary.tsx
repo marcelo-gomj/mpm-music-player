@@ -1,9 +1,9 @@
 import { useContext } from "react";
 //@ts-ignore
 import AddButton from "../../assets/plus.svg?react"
-import { ModalContext } from "@renderer/contexts/ModalContainer";
+import { ModalContext } from "../../contexts/ModalContainer";
 import UpdateLibrary from "../UpdateLibraryModal/Modal";
-import { RouterContext } from "@renderer/contexts/Router";
+import { RouterContext } from "../../contexts/Router";
 
 function NoSourceLibrary(){
   const { setRoute } = useContext(RouterContext); 

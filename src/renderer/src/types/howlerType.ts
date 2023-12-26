@@ -1,4 +1,4 @@
-import { PlayerHandler } from "@renderer/contexts/PlayerContext";
+import { PlayerHandler } from "../contexts/PlayerContext";
 
 const { createHandlerHowler  } = window.api.howler
 

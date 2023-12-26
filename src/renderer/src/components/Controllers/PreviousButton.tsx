@@ -1,4 +1,4 @@
-import { ContextHowl } from "@renderer/types/howlerType";
+import { ContextHowl } from "../../types/howlerType";
 
 //@ts-ignore
 import Previous from "../../assets/previous.svg?react"

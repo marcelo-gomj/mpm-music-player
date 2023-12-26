@@ -1,6 +1,6 @@
-import Player from "@renderer/components/FrontApp/Player";
-import Layout from "@renderer/components/Layout";
-import LIbrarySection from "@renderer/components/Libraries/Library";
+import Player from "../components/FrontApp/Player";
+import Layout from "../components/Layout";
+import LIbrarySection from "../components/Libraries/Library";
 import { createContext, useState } from "react";
 import { ModalProvider } from "./ModalContainer";
 

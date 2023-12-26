@@ -7,7 +7,7 @@ type LayoutProps = {
 
 function Layout({ children } : LayoutProps) {
 	return (
-		<div className="flex relative h-[100vh] ">
+		<div className="flex relative h-[100vh] bg-base-200 text-[white]">
 			<Header />
 			<div className="w-full">
 				{ children }

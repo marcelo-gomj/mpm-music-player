@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import CircleProgressBar from "./CircleProgressBar";
-import { ModalContext } from "@renderer/contexts/ModalContainer";
-import { RouterContext } from "@renderer/contexts/Router";
+import { ModalContext } from "../../contexts/ModalContainer";
+import { RouterContext } from "../../contexts/Router";
 import { Optional } from "@prisma/client/runtime/library";
 import { includes } from "ramda";
 
@@ -72,9 +72,11 @@ function UpdateState({ paths, setIsUpdating }: UpdateStateProps) {
 
   function showUpdatingStatus(status: Status) {
     return {
-      "scanning": `${logger.musicsTotal} arquivos de músicas verificados`,
-      "updating": `Adicionando ${logger.updateds} de ${logger.musicsTotal}`,
-      "updated": `${logger.updateds} músicas adicionados`,
+      "INITIAL": "",
+      "SCANNING": `${logger.musicsTotal} arquivos de músicas verificados`,
+      "CHECK_FILES" : "",
+      "UPDATING": `Adicionando ${logger.updateds} de ${logger.musicsTotal}`,
+      "COMPLETED": `${logger.updateds} músicas adicionados`,
     }[status]
   }
 

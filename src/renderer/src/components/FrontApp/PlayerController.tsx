@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { PlayerContext } from "@renderer/contexts/PlayerContext"
+import { PlayerContext } from "../../contexts/PlayerContext"
 
 import PlayButton from "../Controllers/PlayButton"
 import PreviousButton from "../Controllers/PreviousButton";

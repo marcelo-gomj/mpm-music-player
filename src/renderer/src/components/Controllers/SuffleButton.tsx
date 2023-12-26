@@ -1,9 +1,9 @@
-import { ContextHowl } from "@renderer/types/howlerType";
+import { ContextHowl } from "../../types/howlerType";
 
 //@ts-ignore
 import Suffle from "../../assets/suffle.svg?react"
 import { useContext, useState } from "react";
-import { PlayerContext } from "@renderer/contexts/PlayerContext";
+import { PlayerContext } from "../../contexts/PlayerContext";
 
 function SuffleButton({ } : ContextHowl){
   const { checkIsSuffleList } = useContext(PlayerContext);

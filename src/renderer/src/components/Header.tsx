@@ -11,7 +11,7 @@ import MiniPlayerIcon from "../assets/mini-player.svg?react";
 
 import { map } from "ramda";
 import { useContext } from "react";
-import { RouterContext } from "@renderer/contexts/Router";
+import { RouterContext } from "../contexts/Router";
 
 type TypeHeaderItems = [string, any, (() => void) | undefined]
 

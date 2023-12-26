@@ -1,5 +1,5 @@
-import { HowlerGlobalProps } from "@renderer/types/howlerType";
-import { suffleList, unsuffleList } from "@renderer/utils/suffle";
+import { HowlerGlobalProps } from "../types/howlerType";
+import { suffleList, unsuffleList } from "../utils/suffle";
 import { ReactNode, createContext, useState } from "react";
 
 type PlayerProviderProps = {
@@ -63,6 +63,7 @@ function PlayerProvider({ children } : PlayerProviderProps ){
 
   function handleCurrentMusic(isNext: boolean){
     const { handleNextMusic } = window.api.howler;
+    console.log(handleNextMusic)
     if(howlerGlobal && currentMusic !== null){
       let nextStep = isNext ? (currentMusic + 1) : (currentMusic - 1);
 

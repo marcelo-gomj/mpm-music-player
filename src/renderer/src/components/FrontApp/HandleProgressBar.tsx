@@ -1,4 +1,4 @@
-import { PlayerContext } from "@renderer/contexts/PlayerContext";
+import { PlayerContext } from "../../contexts/PlayerContext";
 import { ReactNode, useContext, useRef } from "react";
 
 type HandleProgressProps = {

@@ -8,7 +8,7 @@ import Config from "../../assets/setting.svg?react";
 import Volume from "../../assets/volume.svg?react";
 import { map }from "ramda";
 import { useContext } from "react";
-import { RouterContext } from "@renderer/contexts/Router";
+import { RouterContext } from "../../contexts/Router";
 
 function MoreTools(){
   const { setRoute } = useContext(RouterContext);
