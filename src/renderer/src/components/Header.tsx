@@ -1,13 +1,8 @@
-//@ts-ignore
-import HomeIcon from "../assets/play.svg?react";
-//@ts-ignore
-import ConfigIcon from "../assets/config.svg?react";
-//@ts-ignore
-import LibraryIcon from "../assets/library.svg?react";
-//@ts-ignore
-import SearchIcon from "../assets/search.svg?react";
-//@ts-ignore
-import MiniPlayerIcon from "../assets/mini-player.svg?react";
+import HomeIcon from "../assets/Header/HomePlay.svg?react";
+import ConfigIcon from "../assets/Header/Settings.svg?react";
+import LibraryIcon from "../assets/Header/Library.svg?react";
+import SearchIcon from "../assets/Header/Search.svg?react";
+import MiniPlayerIcon from "../assets/Header/Radio.svg?react";
 
 import { map } from "ramda";
 import { useContext } from "react";
@@ -16,9 +11,9 @@ import { RouterContext } from "../contexts/Router";
 type TypeHeaderItems = [string, any, (() => void) | undefined]
 
 function Header() {
-  const { setRoute } = useContext(RouterContext);
-  const headerItems : TypeHeaderItems[] = [
-    ['home', HomeIcon, undefined],
+  const { setRoute, currentPath } = useContext(RouterContext);
+  const HEADER_ITEMS : TypeHeaderItems[] = [
+    ['player', HomeIcon, handleClickHome],
     ['library', LibraryIcon, handleClickLibrary],
     ['search', SearchIcon, undefined],
     ['mini-player', MiniPlayerIcon, undefined],
@@ -26,23 +21,32 @@ function Header() {
   ]
 
   return (
-    <header className="flex flex-col justify-center items-center gap-10 h-full px-5 pr-6">
+    <header className="flex flex-col gap-2 justify-center items-center h-full">
       {
-        map(([title, Icon, handleClick]) => (
-          <div
-            className="cursor-pointer opacity-75 hover:opacity-100" 
-            key={title}
-            onClick={handleClick}
-          >
-            <Icon className="w-6 h-6"/>
-          </div>
-        ), headerItems)
+        map(([ title, Icon, handleClick ]) => {
+          const currentHeaderSelected = currentPath === title;
+          return (
+            <div
+              className="relative group cursor-pointer hover:opacity-100 py-4 mx-1 px-3.5 " 
+              key={title}
+              onClick={handleClick}
+            >
+              <Icon className={`w-[1.5rem] h-[1.5rem] ${currentHeaderSelected ? "" : "opacity-40"}`}/>
+              
+              <div className="absolute hidden group-active:hidden group-hover:block right-1 top-[50%] translate-y-[-50%] h-3 rounded-xl w-1 bg-white"></div>
+            </div>
+          )
+        }, HEADER_ITEMS)
       }
     </header>
   )
 
   function handleClickLibrary(){
     setRoute("library")
+  }
+
+  function handleClickHome(){
+    setRoute("player")
   }
 }
 
