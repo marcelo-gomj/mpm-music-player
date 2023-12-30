@@ -4,6 +4,7 @@ import { remove, union } from "ramda";
 import { useState } from "react";
 import UpdateState from "./UpdateState";
 import SelectFolders from "./SelectFolders";
+import { OpenDialogOptions } from "electron";
 
 type PathProps = string[];
 
@@ -29,7 +30,7 @@ function UpdateLibrary() {
   )
 
   async function addFolders() {
-    const options = { properties: ["multiSelections", "openDirectory"] };
+    const options : OpenDialogOptions = { properties: ["multiSelections", "openDirectory"] };
     const paths = await OpenFolders(options);
     const uniquePaths = union(pathsFolderSource, paths);
 

@@ -13,12 +13,13 @@ function HeaderLibraryButton({
 }: HeaderLibraryProps) {
   return (
     <div
-    className={`relative ${isCurrentPath ? '' : 'hover:bg-base-500'} rounded-md duration-100 ease p-3 cursor-pointer`}
+    className={`relative ${isCurrentPath ? '' : 'hover:bg-base-600'} rounded-md duration-100 ease p-2 cursor-pointer`}
+    key={path}
     onClick={setPath}
   >
     <Icon
       key={path}
-      className={`w-7 h-7 ${isCurrentPath ? "" : "opacity-75"}`}
+      className={`w-7 h-7 ${isCurrentPath ? "" : "opacity-45"}`}
     />
     
     { isCurrentPath ? 

@@ -1,8 +1,11 @@
 import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import path from 'path';
 import store from "electron-store";
+import { PrismaClient} from '@prisma/client';
 
 store.initRenderer();
+const prisma = new PrismaClient()
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -13,11 +16,18 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    maxHeight: 800,
+    maxWidth: 600,
+    frame: false, 
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      sandbox : false
+      sandbox : false,
     },
   });
+
+  prisma.$connect()
+  console.log("2. OK")
+
 
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {

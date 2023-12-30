@@ -28,10 +28,20 @@ function UpdateState({ paths, setIsUpdating }: UpdateStateProps) {
     erros: []
   });
 
-  useEffect(InitialScanningFolders, [])
-  useEffect(showButtonFinal, [logger.status])
+  useEffect(() => {
+    handleCustomizeModal({
+      buttonLeft: undefined,
+      buttonRigth: ["Iniciar Verificacão", () => {
+        InitialScanningFolders()
+      }]
+    })
+  }, []);
 
-  const isScanning = includes( logger.status, ["SCANNING", "CHECK_FILES", "UPDATING"]);
+  useEffect(() => {
+    showButtonFinal()
+  }, [logger.status])
+
+  const isScanning = includes( logger.status, ["SCANNING", "UPDATING"]);
   const [radiusProgress, progress] = calcProgressStatus();
 
   return (
@@ -43,7 +53,7 @@ function UpdateState({ paths, setIsUpdating }: UpdateStateProps) {
           isScanning ?
             null :
             <div className="absolute  flex justify-center items-center left-0 top-0 h-full w-full">
-              <div className="text-[3rem] font-medium text-[white]">{progress}%</div>
+              <div className="text-[3rem] font-medium text-[white]">{progress || 0}%</div>
             </div>
         }
 
@@ -61,7 +71,7 @@ function UpdateState({ paths, setIsUpdating }: UpdateStateProps) {
 
   function calcProgressStatus() {
     const currentProgress = Math.ceil((63 / logger.musicsTotal) * logger.updateds);
-    const porcetagem = ((currentProgress / 63) * 100).toFixed(0);
+    const porcetagem = Math.trunc((currentProgress / 63) * 100);
 
     return [currentProgress, porcetagem];
   }
@@ -74,8 +84,8 @@ function UpdateState({ paths, setIsUpdating }: UpdateStateProps) {
     return {
       "INITIAL": "",
       "SCANNING": `${logger.musicsTotal} arquivos de músicas verificados`,
-      "CHECK_FILES" : "",
-      "UPDATING": `Adicionando ${logger.updateds} de ${logger.musicsTotal}`,
+      "CHECK_FILES": `Adicionando ${logger.updateds} de ${logger.musicsTotal}`,
+      "UPDATING": `Adicionando ${logger.updateds} no Database`,
       "COMPLETED": `${logger.updateds} músicas adicionados`,
     }[status]
   }
@@ -87,7 +97,7 @@ function UpdateState({ paths, setIsUpdating }: UpdateStateProps) {
       buttonRigth: ["Cancelar", () => setIsUpdating(false)]
     })
 
-    if(setIsUpdating()){
+    if(logger.status === "INITIAL"){
       updateStateLogger({ status : "SCANNING" });
       
       window.api.verifyFoldersAndUpdateDatabase(

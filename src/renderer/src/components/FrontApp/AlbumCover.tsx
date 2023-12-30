@@ -1,9 +1,7 @@
-// @ts-ignore
 import { useState } from "react";
-// @ts-ignore
 import MiniPlayer from "../../assets/mini-player.svg?react";
-// @ts-ignore
 import Subtitles from "../../assets/subtitles.svg?react";
+import NoMusicIcon from "../../assets/FrontIcons/NoDisc.svg?react";
 
 type AlbumCoverProps = {
   srcBase64 ?: string | null,
@@ -26,13 +24,13 @@ function AlbumCover({
         { srcBase64 ?
           <img
 
-            className="w-[180px] h-[180px] rounded-xl shadow-[2px_0px_20px_rgb(6,6,6)]"
+            className="w-[160px] h-[160px] rounded-xl shadow-[2px_0px_20px_rgb(6,6,6)]"
             src={`data:${mimeType};base64,${srcBase64}`}
           /> :
           <div
-            className="flex items-center justify-center bg-base-400 w-[180px] h-[180px] rounded-xl shadow-[2px_0px_20px_rgb(6,6,6)]"
+            className="flex items-center justify-center w-[160px] h-[160px]"
           >
-            Sem capa
+            <NoMusicIcon className="h-full w-full opacity-5" />
           </div>
         }
       </div>

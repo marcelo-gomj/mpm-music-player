@@ -63,7 +63,7 @@ function PlayerProvider({ children } : PlayerProviderProps ){
 
   function handleCurrentMusic(isNext: boolean){
     const { handleNextMusic } = window.api.howler;
-    console.log(handleNextMusic)
+
     if(howlerGlobal && currentMusic !== null){
       let nextStep = isNext ? (currentMusic + 1) : (currentMusic - 1);
 

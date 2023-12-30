@@ -1,18 +1,32 @@
 import { contextBridge } from "electron";
-import { ipcRenderer } from "electron";
 import config from "./Services/ElectronStore";
 import howler from "./Services/Howler";
 import { verifyFoldersAndUpdateDatabase } from "./Services/Metadata";
 import { checkPath } from "./utils/AlbumCover";
-import prisma from "./Services/Prisma";
+import {
+  TypeMusic,
+  hasDatabaseContent,
+  findMany,
+  queryMusicsByGroups
+} from "./Services/Prisma";
 import OpenFolders from "./utils/OpenFoldersSystem";
+import { prisma } from "./Services/PrismaClient";
+
+prisma.$connect();
+
+console.log("1. OK")
 
 const api = {
   electron: {
     OpenFolders
   },
+  prisma : {
+    TypeMusic,
+    hasDatabaseContent,
+    queryMusicsByGroups,
+    findMany
+  },
   howler,
-  prisma,
   config,
   checkPath,
   verifyFoldersAndUpdateDatabase,

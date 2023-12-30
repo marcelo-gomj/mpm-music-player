@@ -22,12 +22,12 @@ type ModalProvider = {
 
 export const ModalContext = createContext({} as ModalContextProps);
 
-export function ModalProvider({ children }) {
+export function ModalProvider({ children } : { children: any  }) {
   const [modalContent, setModalContent] = useState<ContentModal>(null);
   const [customizeModal, setCustomizeModal] = useState<CustomizeModalProp>({})
   const { title, buttonLeft, buttonRigth, closeModal } = customizeModal;
 
-  const Component = modalContent !== null ? modalContent : () => null;
+  const Component = modalContent !== null ? modalContent : (() : any => null);
 
   return (
     <ModalContext.Provider value={{ handleContentModal, handleCustomizeModal }}>
@@ -57,18 +57,18 @@ export function ModalProvider({ children }) {
               }
             </div>
 
-            <div className="flex absolute bottom-0 justify-center text-center h-14 w-[80%]">
+            <div className="flex absolute bottom-0 gap-6 justify-center bg-base-100 text-center h-16 w-full">
               {buttonLeft ?
                 <div
                   onClick={buttonLeft[1]}
-                  className="w-[50%] py-2 my-auto cursor-pointer"
+                  className="w-[35%] py-2.5 my-auto cursor-pointer border-base-700 hover:border-2 rounded-3xl "
                 >
                   {buttonLeft[0]}
                 </div> : null}
               {buttonRigth ?
                 <div
                   onClick={buttonRigth[1]}
-                  className="w-[50%] py-2 my-auto cursor-pointer bg-base-400 rounded-3xl"
+                  className="w-[35%] py-2.5 my-auto cursor-pointer bg-base-400 border-base-700 rounded-3xl hover:border-2"
                 >
                   {buttonRigth[0]}
                 </div> : null}

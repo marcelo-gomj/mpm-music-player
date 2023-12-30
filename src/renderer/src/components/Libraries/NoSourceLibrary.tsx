@@ -1,17 +1,18 @@
 import { useContext } from "react";
-//@ts-ignore
+
 import AddButton from "../../assets/plus.svg?react"
+
 import { ModalContext } from "../../contexts/ModalContainer";
 import UpdateLibrary from "../UpdateLibraryModal/Modal";
 import { RouterContext } from "../../contexts/Router";
 
 function NoSourceLibrary(){
   const { setRoute } = useContext(RouterContext); 
-  const { handleContentModal } = useContext(ModalContext);
+  const { handleContentModal, handleCustomizeModal } = useContext(ModalContext);
 
   return (
     <section
-      className="absolute flex items-center justify-center select-none top-0 left-0 bg-base-200 h-full w-full"
+      className="flex items-center justify-center select-none bg-base-200 h-full w-full"
     >
       <div
         className="flex flex-col items-center h-[25%] gap-y-8"
@@ -40,10 +41,13 @@ function NoSourceLibrary(){
 
   function handleClickAddSources(){
     handleContentModal(UpdateLibrary)
+    handleCustomizeModal({ closeModal : () => {
+      handleContentModal(null);
+    }})
   }
 
   function handleSkipUpdateSource(){
-    setRoute('library');
+    setRoute('player');
   }
 }
 
