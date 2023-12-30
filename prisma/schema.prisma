@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  engineType = "binary"
 }
 
 datasource db {
@@ -10,7 +11,7 @@ datasource db {
   url      = "file:../database/dev.db"
 }
 
-model music {
+model musics {
   id           Int      @default(dbgenerated())
   title        String?
   artist       String?
