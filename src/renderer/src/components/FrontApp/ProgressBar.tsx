@@ -25,7 +25,7 @@ function ProgressBar({ durationTotal } : ProgressBarProps) {
       >
 
         <div
-          className="relative h-1.5 w-full bg-base-500"
+          className="relative h-[0.26rem] w-full bg-base-500"
         >
           <div
             className="relative overflow-hidden rounded-md w-full h-full"
@@ -39,17 +39,17 @@ function ProgressBar({ durationTotal } : ProgressBarProps) {
 
           <div 
             style={progressPointer}
-            className={`invisible group-hover:visible right-0 absolute top-[-0.3rem] bg-[white] h-4 w-4 rounded-full duration-75 transition-[right]`}
+            className={`invisible group-hover:visible right-0 absolute top-[50%] translate-y-[-50%] bg-[white] h-4 w-4 rounded-full duration-75 transition-[right]`}
           ></div>
         </div>
       </HandleProgress>
 
-      <div className="flex justify-between text-[0.9rem] text-neutral-300">
+      {/* <div className="flex justify-between text-[0.8rem] text-neutral-300">
         <p>{
           convertSecondsForMinutes(duration)
         }</p>
         <p>{ convertSecondsForMinutes(durationTotal || 0) }</p>
-      </div>
+      </div> */}
     </div>
   )
 

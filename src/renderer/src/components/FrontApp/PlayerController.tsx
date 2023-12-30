@@ -28,22 +28,23 @@ function PlayerController({ durationTotal } : PlayerControllerProps){
 
   return (
     <section
-      className="pr-16 space-y-2"
+      className="mr-14 px-16 py-2 rounded-full"
     >
+      <ProgressBar durationTotal={durationTotal} />
+
       <ul 
-        className="flex justify-center gap-8 items-center w-full"
+        className="flex pt-4 justify-center gap-8 items-center w-full"
       >
         { map( GenerateButtons, buttons ) }
       </ul>
 
-      <ProgressBar durationTotal={durationTotal} />
     </section>
   )
 
   function GenerateButtons([ title, ControllerItem ] : typeof buttons[0]) {
     return (
       <li
-        className="cursor-pointer transition-all duration-100 hover:bg-base-500 rounded-xl active:bg-base-700"
+        className="cursor-pointer transition-all p-1.5 duration-100 hover:bg-base-500 rounded-lg active:bg-base-700"
         key={title}
       >
         <ControllerItem ctx={PlayerHandler} />

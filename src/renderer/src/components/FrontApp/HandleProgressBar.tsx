@@ -15,7 +15,7 @@ function HandleProgress({ children, total, setDuration } : HandleProgressProps){
 	  <div
       onClick={handleClickProgressBar}
       ref={progressBarRef}
-      className="group relative py-2 cursor-pointer z-999"
+      className="group relative pt-1 cursor-pointer z-999"
     >
     	{children}
     </div>

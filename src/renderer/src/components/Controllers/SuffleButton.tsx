@@ -1,7 +1,6 @@
 import { ContextHowl } from "../../types/howlerType";
 
-//@ts-ignore
-import Suffle from "../../assets/suffle.svg?react"
+import Suffle from "../../assets/Controllers/Suffle.svg?react";
 import { useContext, useState } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
 
@@ -16,7 +15,7 @@ function SuffleButton({ } : ContextHowl){
       onClick={() => activeSuffle()}
       className={`${isSuffle ? "": "opacity-25"}`}
     >
-      <Suffle />    
+      <Suffle  className="w-8 h-8" />    
     </div>
   )
 

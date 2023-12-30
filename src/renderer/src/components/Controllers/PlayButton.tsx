@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import { ContextHowl } from "../../types/howlerType";
 
-//@ts-ignore
-import Play from "../../assets/play.svg?react"
-//@ts-ignore
-import Pause from "../../assets/pause.svg?react"
-
-import { map } from "ramda";
+import Play from "../../assets/Controllers/Play.svg?react"
+import Pause from "../../assets/Controllers/Pause.svg?react"
 
 function PlayButton({ ctx : { playQueue, queueGlobal, howlerGlobal} } : ContextHowl){
   const [isPlaying, setIsPlaying] = useState(false);
   const { setPlay, setPause } = window.api.howler;
-  // const { libraryChecker } = window.api
 
   useEffect(() => {
     if(!howlerGlobal) return;
@@ -27,13 +22,13 @@ function PlayButton({ ctx : { playQueue, queueGlobal, howlerGlobal} } : ContextH
         <div
           onClick={handlePauseButton}
         >
-          <Pause /> 
+          <Pause  className="w-8 h-8" /> 
         </div>
       : 
         <div
           onClick={handlePlayButton}
         >
-          <Play />
+          <Play  className="w-8 h-8" />
         </div>
       }
     </div>

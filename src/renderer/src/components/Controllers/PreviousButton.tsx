@@ -1,7 +1,7 @@
 import { ContextHowl } from "../../types/howlerType";
 
 //@ts-ignore
-import Previous from "../../assets/previous.svg?react"
+import Previous from "../../assets/Controllers/Previous.svg?react"
 import { useEffect, useState } from "react";
 
 function PreviousButton({ ctx : { handleCurrentMusic, currentMusic, queueGlobal } } : ContextHowl){
@@ -17,7 +17,7 @@ function PreviousButton({ ctx : { handleCurrentMusic, currentMusic, queueGlobal 
       className={isEnablePrevious ? '' : "opacity-25"}
       onClick={handleClickPrevious}
     >
-      <Previous />
+      <Previous  className="w-8 h-8" />
     </div>
   )
 

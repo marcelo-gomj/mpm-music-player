@@ -1,7 +1,6 @@
 import { ContextHowl } from "../../types/howlerType";
 
-// @ts-ignore
-import Next from "../../assets/next.svg?react"
+import Next from "../../assets/Controllers/Next.svg?react"
 import { useEffect, useState } from "react";
 
 function NextButton({ ctx : { handleCurrentMusic, currentMusic, queueGlobal }} : ContextHowl){
@@ -18,7 +17,7 @@ function NextButton({ ctx : { handleCurrentMusic, currentMusic, queueGlobal }} :
       className={`${isEnableNext ? '' : 'opacity-25'}`}
       onClick={isEnableNextMusic}
     >
-      <Next />
+      <Next  className="w-8 h-8" />
     </div>
   )
 

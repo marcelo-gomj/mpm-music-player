@@ -1,14 +1,12 @@
 import { ContextHowl } from "../../types/howlerType";
 
-//@ts-ignore
-import Repeat from "../../assets/repeat.svg?react"
+import NoRepeat from "../../assets/Controllers/No-Repeat.svg?react"
+import Repeat from '../../assets/Controllers/Repeat2.svg?react';
+import RepeatOne from '../../assets/Controllers/Repeat-One.svg?react';
+
 import { useState } from "react";
 import { indexOf, keys} from "ramda";
 
-//@ts-ignore
-import Infinite from '../../assets/infinite.svg?react';
-//@ts-ignore
-import OneTurn from '../../assets/one-turn.svg?react';
 
 // type RepeatMode  = 'one-turn'  | 'repeat' | 'repeat-one';
 
@@ -18,9 +16,9 @@ function ReapeatButton({} : ContextHowl){
 
 
   const iconsState = {
-    'one_turn' : OneTurn,
-    'repeat' : Infinite,
-    'repeat_one' : Repeat
+    'one_turn' : NoRepeat,
+    'repeat' : Repeat,
+    'repeat_one' : RepeatOne
   }
 
 
@@ -30,7 +28,7 @@ function ReapeatButton({} : ContextHowl){
     <div
       onClick={updateIconState}
     >
-      <CurrentStateIcon />
+      <CurrentStateIcon  className="w-8 h-8" />
     </div>
   )
 
