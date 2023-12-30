@@ -5,7 +5,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       external: [
-        "@prisma/client"
+        "@prisma/client",
+        "prisma",
+        "sharp"
       ]
     }
   }
