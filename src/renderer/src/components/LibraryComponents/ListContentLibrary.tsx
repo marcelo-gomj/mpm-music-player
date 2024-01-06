@@ -14,13 +14,17 @@ type AlbumsProps = musics[];
 
 function SectionAlbums({ path, title }: SectionsAlbumsProps) {
   const [albums, setAlbums] = useState([] as AlbumsProps)
-  const [orderByConfig, setOrderByConfig] = useState({ [path]: "desc" } as OrderProps)
+  const [orderByConfig, setOrderByConfig] = useState({ [path]: "asc" } as OrderProps)
 
-  useEffect(queryAllAlbums, [path, orderByConfig]);
+  useEffect(
+    queryAllAlbums,
+    [path, orderByConfig]
+  );
 
-  const itemsList = useMemo(() => {
-    return splitEvery(8, albums)
-  }, [path, orderByConfig]);
+  const itemsList = useMemo(
+    splitEveryEigthItems,
+    [albums, orderByConfig]
+  );
 
   return (
     <>
@@ -44,22 +48,25 @@ function SectionAlbums({ path, title }: SectionsAlbumsProps) {
     </>
   )
 
-  function queryAllAlbums () {
-    !(async () => {
-      const {
-        queryMusicsByGroups,
-      } = window.api.prisma;
-  
-      const groupByPath = uniq([path, "folder"]);
-  
-      const albums : any = await queryMusicsByGroups(100, 0, groupByPath, orderByConfig)
-      console.log("ALBUMS", albums);
-      setAlbums(albums as musics[]);
-    })
+  function queryAllAlbums() {
+    const {
+      queryMusicsByGroups,
+    } = window.api.prisma;
+
+    const groupByPath = uniq([path, "folder"]);
+
+    queryMusicsByGroups(100, 0, groupByPath, orderByConfig).then(
+      (albums : musics[]) => {
+        setAlbums(albums);
+      })
   }
 
   function handleOrderByConfig(orderBy: OrderProps) {
     setOrderByConfig(orderBy)
+  }
+
+  function splitEveryEigthItems() {
+    return splitEvery(8, albums)
   }
 }
 
