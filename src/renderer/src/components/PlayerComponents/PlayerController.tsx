@@ -1,11 +1,11 @@
 import { useContext } from "react"
 import { PlayerContext } from "../../contexts/PlayerContext"
 
-import PlayButton from "../Controllers/PlayButton"
-import PreviousButton from "../Controllers/PreviousButton";
-import SuffleButton from "../Controllers/SuffleButton";
-import ReapeatButton from "../Controllers/RepeatButton";
-import NextButton from "../Controllers/NextButton";
+import PlayButton from "../PlayerControllers/PlayButton"
+import PreviousButton from "../PlayerControllers/PreviousButton";
+import SuffleButton from "../PlayerControllers/SuffleButton";
+import ReapeatButton from "../PlayerControllers/RepeatButton";
+import NextButton from "../PlayerControllers/NextButton";
 import ProgressBar from "./ProgressBar";
 import { map } from "ramda";
 

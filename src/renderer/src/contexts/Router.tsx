@@ -1,6 +1,6 @@
-import Player from "../components/FrontApp/Player";
+import Player from "../components/Routes/Player";
 import Layout from "../components/Layout";
-import LIbrarySection from "../components/Libraries/Library";
+import LIbrarySection from "../components/Routes/Library";
 import { createContext, useState } from "react";
 import { ModalProvider } from "./ModalContainer";
 

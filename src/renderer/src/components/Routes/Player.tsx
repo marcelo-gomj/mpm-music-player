@@ -1,8 +1,8 @@
 import { MusicMetadata } from "../../types/metadatas";
 import { useContext, useEffect, useState } from "react";
-import AlbumCover from "./AlbumCover";
-import TrackDetails from "./TrackDetails";
-import PlayerController from "./PlayerController";
+import AlbumCover from "../PlayerComponents/AlbumCover";
+import TrackDetails from "../PlayerComponents/TrackDetails";
+import PlayerController from "../PlayerComponents/PlayerController";
 import { PlayerContext } from "../../contexts/PlayerContext";
 
 type MusicProps = MusicMetadata | null;

@@ -1,9 +1,7 @@
-
-
 import { remove, union } from "ramda";
 import { useState } from "react";
-import UpdateState from "./UpdateState";
-import SelectFolders from "./SelectFolders";
+import UpdateState from "./ModalUpdateLibrary/UpdateState";
+import SelectFolders from "./ModalUpdateLibrary/SelectFolders";
 import { OpenDialogOptions } from "electron";
 
 type PathProps = string[];

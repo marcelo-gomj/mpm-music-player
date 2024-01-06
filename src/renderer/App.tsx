@@ -2,7 +2,7 @@
 
 import { PlayerProvider } from "./src/contexts/PlayerContext";
 import { RouterProvider } from "./src/contexts/Router";
-import "./global.css";
+import "./Global.css";
 
 function App(): JSX.Element {
   return (
