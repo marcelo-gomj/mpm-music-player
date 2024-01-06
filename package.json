@@ -53,6 +53,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
     "howler": "^2.2.4",
+    "million": "^2.6.4",
     "music-metadata": "^7.14.0",
     "node-id3": "^0.2.6",
     "ramda": "^0.29.1",
