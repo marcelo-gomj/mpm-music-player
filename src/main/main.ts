@@ -18,6 +18,8 @@ const createWindow = () => {
     height: 600,
     maxHeight: 800,
     maxWidth: 600,
+    minHeight: 800,
+    minWidth: 600,
     frame: false, 
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -68,3 +70,4 @@ ipcMain.handle('open-dialog', async (event, options) => {
   const result = await dialog.showOpenDialog(options);
   return result.filePaths
 })
+
