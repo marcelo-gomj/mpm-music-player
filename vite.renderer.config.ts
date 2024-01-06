@@ -6,5 +6,12 @@ export default defineConfig({
   plugins: [
     react(),
     svgr()
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      external: [
+        "sharp"
+      ]
+    }
+  }
 });

@@ -5,19 +5,37 @@ import ListIcon from "../../assets/list.svg?react"
 import FoldersIcon from "../../assets/folders.svg?react"
 import StarListIcon from "../../assets/magic-list.svg?react"
 
-import NoSourceLibrary from "./NoSourceLibrary";
+import NoSourceLibrary from "../LibraryComponents/NoSourceLibrary";
 
 import { map, toPairs } from "ramda";
 import { useContext, useEffect, useState } from "react"
-import HeaderLibraryButton from "./HeaderLibraryButton"
+import HeaderLibraryButton from "../LibraryComponents/HeaderLibraryButton"
 import { RouterContext } from "../../contexts/Router"
-import SectionAlbums from "./SectionAlbums"
+import ListContentLibrary from "../LibraryComponents/ListContentLibrary"
 
 const HEADERS_ITEMS = {
   "current": [CurrentAlbumIcon, <div>current</div>],
-  "album": [AlbumIcon, <SectionAlbums />],
-  "artist": [ArtistIcon, <div>artist</div>],
-  "folders": [FoldersIcon, <div>folders</div>],
+  "album": [
+    AlbumIcon, 
+    <ListContentLibrary 
+      path="album" 
+      title="Todos os albuns"
+    />
+  ],
+  "artist": [
+    ArtistIcon, 
+    <ListContentLibrary 
+      path="artist" 
+      title="Todos os artistas"
+    />
+  ],
+  "folders": [
+    FoldersIcon, 
+    <ListContentLibrary 
+      path="folder"
+      title="Todas as pastas" 
+    />
+  ],
   "starlist": [StarListIcon, <div>starlist</div>],
   "list": [ListIcon, <div>list</div>],
 };
@@ -32,7 +50,7 @@ function LIbrarySection() {
   const [libraryPath, setLibraryPath] = useState<pathProps>('current');
   const { prisma } = window.api;
 
-  useEffect(checkDatabaseSources, [])
+  useEffect(checkDatabaseSources, []);
 
   const sections = toPairs(HEADERS_ITEMS);
   const [_, PathComponent] = HEADERS_ITEMS[libraryPath];
@@ -59,7 +77,7 @@ function LIbrarySection() {
         </div>
       </div>
 
-      <div className="flex bar-scroll justify-center items-center flex-col h-full w-full overflow-y-scroll">
+      <div className="relative bar-scroll p-4 w-full overflow-y-scroll">
         {/* @ts-ignore */}
         {generateLibraryContent()}
       </div>
@@ -80,5 +98,6 @@ function LIbrarySection() {
     }[statusDatabase]
   }
 }
+
 
 export default LIbrarySection;

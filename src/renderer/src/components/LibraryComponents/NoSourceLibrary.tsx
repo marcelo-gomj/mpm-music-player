@@ -3,7 +3,7 @@ import { useContext } from "react";
 import AddButton from "../../assets/plus.svg?react"
 
 import { ModalContext } from "../../contexts/ModalContainer";
-import UpdateLibrary from "../UpdateLibraryModal/Modal";
+import UpdateLibrary from "../Modal";
 import { RouterContext } from "../../contexts/Router";
 
 function NoSourceLibrary(){

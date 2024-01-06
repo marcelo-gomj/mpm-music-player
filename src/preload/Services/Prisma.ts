@@ -1,9 +1,8 @@
-import { musics } from "@prisma/client";
-import { map, reduce } from "ramda";
+import { musics, Prisma } from "@prisma/client";
 import { prisma } from "./PrismaClient"
 
 const TypeMusic = {} as musics;
-
+export type OrderProps = Prisma.musicsOrderByWithAggregationInput | Prisma.musicsOrderByWithRelationInput[];
 
 const hasDatabaseContent = async () => {
   return prisma.musics.count();
@@ -12,18 +11,9 @@ const hasDatabaseContent = async () => {
 const findMany = async (
   pagination: number
 ) => {
-  const data = await  prisma.musics.findMany({
+  const data = await prisma.musics.findMany({
     take: pagination,
   })
-
-  console.log("GROUP BY",
-    await prisma.musics.groupBy({
-      by: ["folder", "album"],
-      orderBy: {
-        album: "asc"
-      }
-    })
-  )
 
   return data
 }
@@ -31,23 +21,29 @@ const findMany = async (
 const queryMusicsByGroups = async (
   pagination: number, 
   skip: number,
-  groups: (keyof musics)[]
+  distinct: any,
+  orderBy: OrderProps
 ) => {
-  const [groupOrder] = groups;
   const res = await prisma.musics.findMany({
     take: pagination,
+    select: {
+      id: true,
+      album: true,
+      folder: true,
+      artist: true,
+      path: true
+    },
     skip: skip,
-    distinct: groups,
-    orderBy: reduce( 
-      (grouped, field) => ({...grouped, [field] : "desc"}),
-      {}, [groupOrder]
-    )
+    distinct,
+    orderBy
   })
+
+  console.log("ORDER ", orderBy)
 
   return res;
 }
 
-export {
+export default {
   hasDatabaseContent,
   findMany, 
   queryMusicsByGroups,
