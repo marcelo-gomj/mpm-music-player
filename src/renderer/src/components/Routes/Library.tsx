@@ -11,28 +11,39 @@ import { map, toPairs } from "ramda";
 import { useContext, useEffect, useState } from "react"
 import HeaderLibraryButton from "../LibraryComponents/HeaderLibraryButton"
 import { RouterContext } from "../../contexts/Router"
-import ListContentLibrary from "../LibraryComponents/ListContentLibrary"
+import ListComponent from "../ListComponents/ListComponent"
 
 const HEADERS_ITEMS = {
-  "current": [CurrentAlbumIcon, <div>current</div>],
+  "current": [
+    CurrentAlbumIcon,
+    "" 
+    // <ListComponent hasSubCategories={false} />
+  ],
   "album": [
     AlbumIcon, 
-    <ListContentLibrary 
-      path="album" 
+    // <ListContentLibrary 
+    //   path="album" 
+    //   title="Todos os albuns"
+    // />
+    <ListComponent 
+      fieldsRoute={["album", "folder"]}
+      hasSubCategories={false} 
       title="Todos os albuns"
     />
   ],
   "artist": [
     ArtistIcon, 
-    <ListContentLibrary 
-      path="artist" 
+    <ListComponent 
+      fieldsRoute={["artist"]} 
+      hasSubCategories={true}
       title="Todos os artistas"
     />
   ],
   "folders": [
     FoldersIcon, 
-    <ListContentLibrary 
-      path="folder"
+    <ListComponent 
+      fieldsRoute={["folder"]}
+      hasSubCategories={false}
       title="Todas as pastas" 
     />
   ],
@@ -45,7 +56,7 @@ type CheckSourceStatus = "PENDING" | "NO_DATA" | "DATA_OK";
 type pathProps = keyof typeof HEADERS_ITEMS;
 
 function LIbrarySection() {
-  const { setRoute, currentPath } = useContext(RouterContext);
+  // const { setRoute, currentPath } = useContext(RouterContext);
   const [statusDatabase, setStatusDatabase] = useState<CheckSourceStatus>("PENDING");
   const [libraryPath, setLibraryPath] = useState<pathProps>('current');
   const { prisma } = window.api;
@@ -60,9 +71,9 @@ function LIbrarySection() {
       className="flex flex-col h-full w-full"
     >
       <div
-        className="flex justify-center gap-10 py-3 "
+        className="flex justify-center gap-6 py-3 "
       >
-        <div className="flex gap-10 px-5 py-1 bg-base-400 rounded-3xl">
+        <div className="flex gap-10 px-5 py-1">
           {map(([path, [Icon]]) => (
             <HeaderLibraryButton
               key={path}
@@ -77,7 +88,7 @@ function LIbrarySection() {
         </div>
       </div>
 
-      <div className="relative bar-scroll p-4 w-full overflow-y-scroll">
+      <div className="relative h-full bar-scroll px-1 pb-5 w-full overflow-y-scroll">
         {/* @ts-ignore */}
         {generateLibraryContent()}
       </div>

@@ -19,7 +19,7 @@ function HeaderLibraryButton({
   >
     <Icon
       key={path}
-      className={`w-7 h-7 ${isCurrentPath ? "" : "opacity-45"}`}
+      className={`w-6 h-6 ${isCurrentPath ? "" : "opacity-45"}`}
     />
     
     { isCurrentPath ? 

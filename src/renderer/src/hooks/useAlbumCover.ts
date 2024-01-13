@@ -16,7 +16,7 @@ const useAlbumCover = (path : string, coverSizes : CoverSizesProps ) => {
 
   useEffect(() => {
     getBase64ImageSrc()
-  }, [])
+  }, [path])
 
   return srcUrlImage
 }

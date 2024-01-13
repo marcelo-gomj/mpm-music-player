@@ -46,10 +46,11 @@ function PlayerProvider({ children } : PlayerProviderProps ){
 
   // play list musics
   function playQueue(music: number, queue : string[]){    
+    if(queueGlobal) setHowlerGlobal(null)
 
-    const context = createHandlerHowler(
-      { 
-        currentQueue: queue, currentMusicIndex: music 
+    const context = createHandlerHowler({ 
+        currentQueue: queue, 
+        currentMusicIndex: music 
       },
       setHowlerGlobal,
       setCurrentMusic as any

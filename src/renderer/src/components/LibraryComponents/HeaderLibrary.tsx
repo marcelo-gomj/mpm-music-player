@@ -40,7 +40,7 @@ function HeaderLibrary({ title, mainField, handleOrderByConfig } : HeaderLibrary
 
   return (
     <header
-      className="flex justify-between h-[6rem] px-4"
+      className="flex justify-between h-[5rem] px-4  border-[1px]"
     >
       <h1
         className="text-[1.5rem] font-medium"
@@ -49,11 +49,11 @@ function HeaderLibrary({ title, mainField, handleOrderByConfig } : HeaderLibrary
       </h1>
 
       <div
-        className="relative left-0 top-0 text-[1rem] w-[35%] z-[800] "
+        className="relative left-0 top-0 border-[1px] w-[35%] text-[0.95rem] z-[800] "
       >
         <div 
           onClick={handleClickOpenFilters}
-          className="py-2 cursor-pointer text-center w-full border-2 rounded-full border-base-600 hover:border-base-900"
+          className="py-1.5 cursor-pointer text-center w-full border-2 rounded-full border-base-600 hover:border-base-900"
         >
           {HEADERS_FILTERS[currentFilters][0]}
         </div>

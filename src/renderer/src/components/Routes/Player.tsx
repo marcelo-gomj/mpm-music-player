@@ -55,7 +55,7 @@ function Player() {
 
 	async function getMetadataAlbum(path: string) {
 		const { checkPath } = window.api;
-		const { meta, image } = await checkPath(path);
+		const { meta, image } = await checkPath(path, { height: 128, width: 128 });
 
 
 		if (meta) {

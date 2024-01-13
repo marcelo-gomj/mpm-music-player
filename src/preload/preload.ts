@@ -6,8 +6,11 @@ import { checkPath } from "./utils/AlbumCover";
 import prisma from "./Services/Prisma";
 import OpenFolders from "./utils/OpenFoldersSystem";
 import { prisma as prismaClient } from "./Services/PrismaClient";
+import { init } from "./Services/test";
 
 prismaClient.$connect();
+
+init()
 
 const api = {
   electron: {
