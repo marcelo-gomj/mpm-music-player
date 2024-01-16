@@ -19,13 +19,14 @@ const findMany = async (
 }
 
 const queryMusicsByGroups = async (
-  pagination: number, 
+  pagination: number,
   skip: number,
   distinct: ("folder" | "album" | "genres" | "artist")[],
   orderBy: OrderProps
 ) => {
   const res = await prisma.musics.findMany({
-    take: pagination,
+    // take: pagination,
+    distinct,
     select: {
       id: true,
       album: true,
@@ -34,12 +35,8 @@ const queryMusicsByGroups = async (
       path: true
     },
     skip: skip,
-    distinct,
     orderBy
   })
-
-  console.log("GROUPS", res);
-  
 
   return res;
 }
@@ -49,7 +46,7 @@ const findAlbum = async (whereKey: keyof musics, field: string) => {
     where: {
       [whereKey]: field
     },
-    orderBy : {
+    orderBy: {
       album: "asc"
     }
   })
@@ -59,7 +56,7 @@ const findAlbum = async (whereKey: keyof musics, field: string) => {
 
 const setReatedMusic = async (id: number, reated: number) => {
   await prisma.musics.update({
-    where : {
+    where: {
       id
     },
     data: {
@@ -70,7 +67,7 @@ const setReatedMusic = async (id: number, reated: number) => {
 
 export default {
   hasDatabaseContent,
-  findMany, 
+  findMany,
   findAlbum,
   setReatedMusic,
   queryMusicsByGroups,
