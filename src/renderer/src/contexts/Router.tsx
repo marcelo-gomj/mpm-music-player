@@ -25,11 +25,11 @@ export function RouterProvider() {
 
   return (
     <RouterContext.Provider value={{ setRoute, currentPath: path }}>
-        <ModalProvider>
-          <Layout>
-              <Page />
-          </Layout>
-        </ModalProvider>
+      <ModalProvider>
+        <Layout>
+          <Page />
+        </Layout>
+      </ModalProvider>
     </RouterContext.Provider>
   )
 
