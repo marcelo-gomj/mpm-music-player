@@ -2,35 +2,35 @@ import { PlayerContext } from "../../contexts/PlayerContext";
 import { ReactNode, useContext, useRef } from "react";
 
 type HandleProgressProps = {
-	children: ReactNode,
-	total ?: number,
-  setDuration: (duration: number ) => void
+  children: ReactNode,
+  total?: number,
+  setDuration: (duration: number) => void
 }
 
-function HandleProgress({ children, total, setDuration } : HandleProgressProps){
-	const { howlerGlobal } = useContext(PlayerContext);
+function HandleProgress({ children, total, setDuration }: HandleProgressProps) {
+  const { howlerGlobal } = useContext(PlayerContext);
   const progressBarRef = useRef<HTMLDivElement>(null)
 
-	return (
-	  <div
+  return (
+    <div
       onClick={handleClickProgressBar}
       ref={progressBarRef}
-      className="group relative pt-1 cursor-pointer z-999"
+      className="group w-full relative cursor-pointer z-999"
     >
-    	{children}
+      {children}
     </div>
-	)
+  )
 
-	function handleClickProgressBar(event : React.MouseEvent<HTMLDivElement, MouseEvent>){
-    if(!howlerGlobal || !progressBarRef.current || !total) return;
+  function handleClickProgressBar(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (!howlerGlobal || !progressBarRef.current || !total) return;
 
     const { setProgressMusic } = window.api.howler;
 
     // get width and click point for handle the music duration 
     const progressBar = progressBarRef.current.getBoundingClientRect();
-    const percentageClicked = (( event.clientX - progressBar.left) / progressBar.width) * 100;
+    const percentageClicked = ((event.clientX - progressBar.left) / progressBar.width) * 100;
     const clickedDuration = (percentageClicked / 100) * total;
-    
+
     setDuration(clickedDuration)
     howlerGlobal(
       setProgressMusic,
