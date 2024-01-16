@@ -26,7 +26,7 @@ import ListMusics from "../MusicLists/ListMusics";
 type ListResultsProps = {
 	selectedContentId: musics,
 	musicsListSelected: musics[],
-	albumResults : boolean,
+	albumResults: boolean,
 	handleMusicsSelected: (musics: musics[]) => void
 };
 
@@ -36,10 +36,8 @@ function ListResults({
 	handleMusicsSelected,
 	albumResults
 }: ListResultsProps) {
-	const { playQueue } = useContext(PlayerContext);
-
 	return (
-		<div className="p-4 pl-6 h-full bar-scroll overflow-y-scroll border-l-2 border-base-600">
+		<div className="p-4 pl-6 relative h-full bar-scroll overflow-y-scroll border-l-2 border-base-600">
 			{selectedContentId ? (
 				<section>
 					<ListMusics

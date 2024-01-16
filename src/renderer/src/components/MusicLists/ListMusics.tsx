@@ -49,12 +49,15 @@ function ListMusics({ musicsList, orderByAlbum, noHeaderAlbum }: ListMusicsProps
           totalDuration={calcTotalDurationContent(list)}
         >
           <ul key={key}>
-            {map((music) => (
-              <MusicItem
-                music={music}
-                key={music.id}
-              />
-            ), list)}
+            {addIndex(map)(
+              (music: musics, index: number) => (
+                <MusicItem
+                  index={index}
+                  music={music}
+                  key={music.id}
+                  musics={list}
+                />
+              ), list)}
           </ul>
         </HeaderMusicList>
       </section>

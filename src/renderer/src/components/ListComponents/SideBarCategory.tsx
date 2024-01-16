@@ -2,19 +2,19 @@ import { musics } from "@prisma/client";
 import SearchIcon from "../../assets/search.svg?react";
 
 import DiscIcon from "../../assets/album.svg?react";
-import ArtistIcon from "../../assets/artist.svg?react"; 
-import FolderIcon from "../../assets/folders.svg?react"; 
+import ArtistIcon from "../../assets/artist.svg?react";
+import FolderIcon from "../../assets/folders.svg?react";
 
 import ArrowDownIcon from "../../assets/arrowDown.svg?react";
-import { groupBy, last, prop, split, toPairs, __, pipe } from "ramda";
-import { FunctionComponent, useMemo, useState } from "react";
-import { fieldsKeys } from "./ListComponent";
+import { last, split, __ } from "ramda";
+import { FunctionComponent, useState } from "react";
+import { CategoriesAlbumsType, fieldsKeys } from "./ListComponent";
 
 
 type functionGetAlbumsById = (id: string, subField?: fieldsKeys) => () => void
 
 type SideBarCategory = {
-	albums: musics[];
+	categories: CategoriesAlbumsType;
 	getAlbumsByField: functionGetAlbumsById;
 	isSelected: musics | null;
 	uniqueField: fieldsKeys;
@@ -22,29 +22,24 @@ type SideBarCategory = {
 	hasSubCategory?: boolean;
 };
 
-type CategoryProps = musics | [string, musics[]]
-
 function SideBarCategories({
-	albums,
+	categories,
 	getAlbumsByField,
 	isSelected,
-	hasSubCategory,
 	uniqueField,
 	title,
 }: SideBarCategory) {
-	// const categories = useMemo(divideSubCategoriesItems, [title]);
-	const categories = useMemo(divideSubCategoriesItems, [albums]);
 
-	const ICONS_FIELDS : Record<fieldsKeys, FunctionComponent<any>> = {
+	const ICONS_FIELDS: Record<fieldsKeys, FunctionComponent<any>> = {
 		album: DiscIcon,
-		artist : ArtistIcon,
-		folder : FolderIcon,
-		genres : null
+		artist: ArtistIcon,
+		folder: FolderIcon,
+		genres: null
 	}
 
 	return (
 		<div className="relative flex flex-col overflow-hidden h-full">
-			<div className="pr-2">
+			<div className="">
 				<div className="flex py-2 justify-between">
 					<h2 className="text-large font-medium">{title}</h2>
 					<SearchIcon className="w-5 h-5" />
@@ -55,13 +50,13 @@ function SideBarCategories({
 				</div>
 			</div>
 
-			<ul className="relative h-full w-full overflow-auto bar-scroll">
+			<ul className="relative h-full w-full overflow-auto bar-scroll pr-2">
 				{categories.map(checkSubCategoresAndCategories)}
 			</ul>
 		</div>
 	);
 
-	function checkSubCategoresAndCategories(category: CategoryProps, index: number) {
+	function checkSubCategoresAndCategories(category: CategoriesAlbumsType[0], index: number) {
 		return (
 			<CategoryItem
 				category={category}
@@ -71,12 +66,6 @@ function SideBarCategories({
 				Icon={ICONS_FIELDS[uniqueField]}
 			/>
 		)
-	}
-
-	function divideSubCategoriesItems() {
-		if (hasSubCategory) return toPairs(groupBy(prop(uniqueField), albums));
-
-		return albums;
 	}
 }
 
@@ -96,7 +85,7 @@ function defaultFolder(folder: string) {
 function defaultTitleCheck(content: musics, field: fieldsKeys) {
 	const firstTitle = content[field];
 
-	if(!firstTitle || field === 'folder') return defaultFolder(content.folder);
+	if (!firstTitle || field === 'folder') return defaultFolder(content.folder);
 
 	return firstTitle
 }
@@ -104,19 +93,20 @@ function defaultTitleCheck(content: musics, field: fieldsKeys) {
 function CategoryItem({
 	Icon, category, field, isCurrentSelected, getAlbumsByField
 }: CategoryItemProps) {
-	const [isOpenSubCategory, setIsOpenSubCategory] = useState(false);
+	// const [isOpenSubCategory, setIsOpenSubCategory] = useState(false);
 	const hasSubCategories = Array.isArray(category);
 	const categoryId = hasSubCategories ? category[0] : category[field];
-	const categotyTitle = hasSubCategories ? categoryId: defaultTitleCheck(category, field)
+	const categotyTitle = hasSubCategories ? categoryId : defaultTitleCheck(category, field)
 	const currentSelected = isCurrentSelected && isCurrentSelected[field] === categoryId;
-	
+	const categoryOpened = hasSubCategories ? isCurrentSelected.artist === category[0] : false;
+
 	return (
-		<li 
+		<li
 			key={categoryId}
-			className="animation-[all_1s_ease]"
+			className=""
 		>
 			<div
-				className="flex px-3 py-1.5 hover:bg-base-500 group items-center gap-4 rounded-md cursor-pointer"
+				className="flex relative px-3 py-1.5 hover:bg-base-500 group items-center gap-4 rounded-md cursor-pointer"
 				onClick={handleClickCategory(categoryId)}
 			>
 				<Icon
@@ -124,64 +114,69 @@ function CategoryItem({
 				/>
 
 				<div className="flex items-center justify-between w-full">
-					<p className={`text-[0.9rem] line-clamp-2 ${currentSelected ? "opacity-100" : "opacity-75"}`}>
+					<p
+						title={categotyTitle}
+						className={`text-[0.85rem] line-clamp-1 ${currentSelected ? "opacity-100" : "opacity-60"}`}
+					>
 						{categotyTitle}
 					</p>
 
 					{hasSubCategories ?
-						<ArrowDownIcon
-							className={`w-5 h-5 ${isOpenSubCategory ? 'rotate-180' : ""}`}
-							onClick={handleClickArrowDown}
-						/>
+						<div
+							// onClick={handleClickArrowDown}
+							className="absolute flex items-center justify-center w-10 right-0 top-0 h-full"
+						>
+							<ArrowDownIcon
+								className={`w-5 h-5 ${categoryOpened ? 'rotate-180' : ""}`}
+							/>
+						</div>
 						: null
 					}
 				</div>
-
-
 			</div>
 
-				{isOpenSubCategory && hasSubCategories ?
-					<div className="py-1">
-						{mapSubcategories(category[1])} 
-					</div>
-					:
-					null
-				}
+			{hasSubCategories && categoryOpened ?
+				<div className="py-1 my-2 mb-5 ml-5 rounded-r-md border-l-2 border-base-500">
+					{mapSubcategories(category[1])}
+				</div>
+				:
+				null
+			}
 		</li >
 	);
 
 	function mapSubcategories(subcategories: musics[]) {
 		return subcategories.map(
-			subcategory => { 
-			const subCategoryActive = isCurrentSelected?.album === subcategory.album;
+			subcategory => {
+				const subCategoryActive = isCurrentSelected?.album === subcategory.album;
 
-			return (
-				<div
-					className={`flex items-center gap-2 pl-8 py-1 text-[.9rem] ${ subCategoryActive ? 'opacity-100' : "opacity-50"} cursor-pointer`}
-					onClick={getAlbumsByField(subcategory.album, "album")} 
-					key={subcategory.album}
-				>
-					<DiscIcon className="w-5 h-5" />
-					<p>{subcategory.album}</p>
-				</div>
-			)
+				return (
+					<div
+						className={`flex group items-center hover:opacity-100 gap-2 pl-3 py-1 text-[.9rem] ${subCategoryActive ? 'opacity-100' : "opacity-50"} cursor-pointer`}
+						onClick={getAlbumsByField(subcategory.album, "album")}
+						key={subcategory.id}
+					>
+						<DiscIcon className="w-5 h-5" />
+						<p className="">{subcategory.album}</p>
+					</div>
+				)
 			})
 	}
 
-	function handleClickCategory(id: string){
+	function handleClickCategory(id: string) {
 		return () => {
-			if(!isOpenSubCategory){
-				getAlbumsByField(id)();
-				return;
-			}
+			// if (!isOpenSubCategory) {
+			getAlbumsByField(id)();
+			// 	return;
+			// }
 
-			setIsOpenSubCategory(!isOpenSubCategory)
+			// setIsOpenSubCategory(!isOpenSubCategory)
 		}
 	}
 
-	function handleClickArrowDown(){
-		setIsOpenSubCategory(!isOpenSubCategory)
-	}
+	// function handleClickArrowDown() {
+	// 	setIsOpenSubCategory(!isOpenSubCategory)
+	// }
 }
 
 

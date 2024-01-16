@@ -2,70 +2,86 @@ import { musics } from "@prisma/client";
 import { useEffect, useState } from "react";
 import ListResults from "./ListResults";
 import SideBarCategories from "./SideBarCategory";
-import { includes } from "ramda";
-
+import { groupBy, head, prop, toPairs, or, reduce, map } from "ramda";
 
 export type fieldsKeys = ("album" | "artist" | "folder" | "genres")
 type ListComponentsProps = {
   hasSubCategories: boolean,
-  fieldsRoute : fieldsKeys[],
+  fieldsRoute: fieldsKeys[],
   title: string
 }
 
-function ListComponent({ hasSubCategories, fieldsRoute, title } : ListComponentsProps) {
-  const { queryMusicsByGroups, findAlbum } = window.api.prisma;
-  const [albums, setAlbums] = useState([] as musics[]);
-  const [musicsListSelected, setMusicsListSelected] = useState(null as musics[])
+export type CategoriesAlbumsType = musics[] | [string, musics[]][]
 
-  useEffect(queryAlbums, fieldsRoute)
+function ListComponent({ hasSubCategories, fieldsRoute, title }: ListComponentsProps) {
+  const { queryMusicsByGroups, findAlbum } = window.api.prisma;
+  const [categoriesAlbums, setCategoriesAlbums] = useState<CategoriesAlbumsType>([]);
+  const [musicsListSelected, setMusicsListSelected] = useState(null as musics[])
+  const uniqueField = head(fieldsRoute);
+
+  useEffect(queryAlbums, [uniqueField])
 
   const selectedContentId = musicsListSelected ? musicsListSelected[0] : null;
   const orderResultByAlbums = fieldsRoute[0] === "album";
 
   return (
     <section
-      className="grid grid-cols-[38%_60%] justify-between h-full w-full"
+      className="grid relative grid-cols-[38%_60%] justify-between w-full h-full"
     >
       <SideBarCategories
-        albums={albums}
+        categories={categoriesAlbums}
         getAlbumsByField={handleClickAlbum}
-        isSelected={selectedContentId} 
+        isSelected={selectedContentId}
         hasSubCategory={hasSubCategories}
-        uniqueField={fieldsRoute[0]} 
-        title={title}      
+        uniqueField={uniqueField}
+        title={title}
       />
 
-      <ListResults 
-        selectedContentId={selectedContentId} 
+      <ListResults
+        selectedContentId={selectedContentId}
         musicsListSelected={musicsListSelected}
         albumResults={hasSubCategories}
-        handleMusicsSelected={setMusicsListSelected}      
+        handleMusicsSelected={setMusicsListSelected}
       />
     </section>
   )
 
   function queryAlbums() {
-    const [queryFieldKey] = fieldsRoute;
-    queryMusicsByGroups(100, 0, fieldsRoute, { [queryFieldKey]: "asc" })
-      .then((albums: musics[]) => {
-        setAlbums(albums);
-
-        if (musicsListSelected === null) {
-          const [defaultAlbum] = albums;
-          handleClickAlbum(defaultAlbum[queryFieldKey]);
-        }
-      })
+    queryMusicsByGroups(100, 0, fieldsRoute, [
+      ...map(field => ({ [field]: "asc" }), fieldsRoute)
+    ])
+      .then(groupByCategoryType)
 
     return () => {
-      setAlbums([])
+      setCategoriesAlbums([]);
       setMusicsListSelected(null);
     }
   }
 
+  function groupByCategoryType(albums: musics[]) {
+
+    console.log("FUNCTION GROUPER", albums)
+    const defaultAlbum = head(albums);
+
+    if (musicsListSelected === null) {
+      handleClickAlbum(defaultAlbum[uniqueField]);
+    }
+
+    if (hasSubCategories) {
+      setCategoriesAlbums(toPairs(groupBy(prop(uniqueField), albums)));
+      return;
+    }
+
+    setCategoriesAlbums(albums);
+  }
+
   function handleClickAlbum(id: string, subField?: fieldsKeys) {
-    return () => findAlbum(subField || fieldsRoute[0], id).then(
-      musics => setMusicsListSelected(musics)
-    )
+    return () => {
+      findAlbum(or(subField, uniqueField), id)
+        .then(musics => {
+          setMusicsListSelected(musics)
+        })
+    }
   }
 }
 

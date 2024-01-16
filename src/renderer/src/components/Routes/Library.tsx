@@ -16,35 +16,35 @@ import ListComponent from "../ListComponents/ListComponent"
 const HEADERS_ITEMS = {
   "current": [
     CurrentAlbumIcon,
-    "" 
+    ""
     // <ListComponent hasSubCategories={false} />
   ],
   "album": [
-    AlbumIcon, 
+    AlbumIcon,
     // <ListContentLibrary 
     //   path="album" 
     //   title="Todos os albuns"
     // />
-    <ListComponent 
-      fieldsRoute={["album", "folder"]}
-      hasSubCategories={false} 
+    <ListComponent
+      fieldsRoute={["album"]}
+      hasSubCategories={false}
       title="Todos os albuns"
     />
   ],
   "artist": [
-    ArtistIcon, 
-    <ListComponent 
-      fieldsRoute={["artist"]} 
+    ArtistIcon,
+    <ListComponent
+      fieldsRoute={["artist", 'album']}
       hasSubCategories={true}
       title="Todos os artistas"
     />
   ],
   "folders": [
-    FoldersIcon, 
-    <ListComponent 
+    FoldersIcon,
+    <ListComponent
       fieldsRoute={["folder"]}
       hasSubCategories={false}
-      title="Todas as pastas" 
+      title="Todas as pastas"
     />
   ],
   "starlist": [StarListIcon, <div>starlist</div>],
@@ -68,12 +68,12 @@ function LIbrarySection() {
 
   return (
     <section
-      className="flex flex-col h-full w-full"
+      className="flex relative gap-2 flex-col h-full w-full"
     >
       <div
-        className="flex justify-center gap-6 py-3 "
+        className="flex justify-center gap-6 py-1 "
       >
-        <div className="flex gap-10 px-5 py-1">
+        <div className="flex gap-10 px-5">
           {map(([path, [Icon]]) => (
             <HeaderLibraryButton
               key={path}
@@ -88,16 +88,16 @@ function LIbrarySection() {
         </div>
       </div>
 
-      <div className="relative h-full bar-scroll px-1 pb-5 w-full overflow-y-scroll">
+      <div className="relative h-full bar-scroll pl-[6px] w-full overflow-y-scroll">
         {/* @ts-ignore */}
         {generateLibraryContent()}
       </div>
     </section>
   )
 
-  function checkDatabaseSources(){
+  function checkDatabaseSources() {
     prisma.hasDatabaseContent().then(totalItems => {
-      setStatusDatabase(totalItems ? "DATA_OK" : "NO_DATA" );
+      setStatusDatabase(totalItems ? "DATA_OK" : "NO_DATA");
     })
   }
 
