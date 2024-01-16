@@ -23,7 +23,7 @@ model musics {
   year         Int?
   current_disc Int?
   total_discs  Int?
-  duration     Float
+  duration     Float?
   bitrate      Int?
   channels     Int?
   sample_rate  Int?
