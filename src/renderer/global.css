@@ -7,17 +7,18 @@
   font-family: 'Roboto Condensed', sans-serif;
 }
 
-html{
+html {
   color: white;
 }
 
-.animation-open-modal{
+.animation-open-modal {
   animation: modalOpen 0.3s ease;
 }
 
-.animation-move{
+.animation-move {
   animation: modalOpen 0.3s ease;
 }
+
 /* --------------------- */
 
 .bar-scroll::-webkit-scrollbar {
@@ -25,7 +26,7 @@ html{
 }
 
 .bar-scroll::-webkit-scrollbar-track {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .bar-scroll::-webkit-scrollbar-thumb {
@@ -37,8 +38,9 @@ html{
 .bar-scroll:active::-webkit-scrollbar-thumb,
 .bar-scroll:focus::-webkit-scrollbar-thumb,
 .bar-scroll:hover::-webkit-scrollbar-thumb {
-    visibility: visible;
+  visibility: visible;
 }
+
 /* --------------------- */
 
 
@@ -49,16 +51,32 @@ html{
   transform-origin: 50% 50%;
 }
 
-.mode-verify{
-  stroke-dashoffset: calc(400 - (400 * 31.5) / 100) !important; 
+.mode-verify {
+  stroke-dashoffset: calc(400 - (400 * 31.5) / 100) !important;
   transform: rotate(90deg);
   animation: verify-animation 2s linear infinite;
 }
 
+.open-controllers {
+  animation: open-controllers-move 0.5s ease 1s;
+}
+
+@keyframes open-controllers-move {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes verify-animation {
-  from{
+  from {
     transform: rotate(-360deg);
-  }to{
+  }
+
+  to {
     transform: rotate(360deg);
   }
 }
@@ -66,7 +84,9 @@ html{
 @keyframes modalOpen {
   from {
     opacity: 0.2;
-  }to {
+  }
+
+  to {
     opacity: 1;
   }
 }
