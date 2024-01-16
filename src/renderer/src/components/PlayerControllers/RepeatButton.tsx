@@ -28,7 +28,7 @@ function ReapeatButton({} : ContextHowl){
     <div
       onClick={updateIconState}
     >
-      <CurrentStateIcon  className="w-8 h-8" />
+      <CurrentStateIcon  className="w-7 h-7" />
     </div>
   )
 

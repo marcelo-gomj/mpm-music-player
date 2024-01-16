@@ -17,7 +17,7 @@ function NextButton({ ctx : { handleCurrentMusic, currentMusic, queueGlobal }} :
       className={`${isEnableNext ? '' : 'opacity-25'}`}
       onClick={isEnableNextMusic}
     >
-      <Next  className="w-8 h-8" />
+      <Next  className="w-7 h-7" />
     </div>
   )
 

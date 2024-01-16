@@ -22,13 +22,13 @@ function PlayButton({ ctx : { playQueue, queueGlobal, howlerGlobal} } : ContextH
         <div
           onClick={handlePauseButton}
         >
-          <Pause  className="w-8 h-8" /> 
+          <Pause  className="w-7 h-7" /> 
         </div>
       : 
         <div
           onClick={handlePlayButton}
         >
-          <Play  className="w-8 h-8" />
+          <Play  className="w-7 h-7" />
         </div>
       }
     </div>

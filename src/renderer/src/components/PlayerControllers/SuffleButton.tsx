@@ -15,7 +15,7 @@ function SuffleButton({ } : ContextHowl){
       onClick={() => activeSuffle()}
       className={`${isSuffle ? "": "opacity-25"}`}
     >
-      <Suffle  className="w-8 h-8" />    
+      <Suffle  className="w-7 h-7" />    
     </div>
   )
 

@@ -17,7 +17,7 @@ function PreviousButton({ ctx : { handleCurrentMusic, currentMusic, queueGlobal 
       className={isEnablePrevious ? '' : "opacity-25"}
       onClick={handleClickPrevious}
     >
-      <Previous  className="w-8 h-8" />
+      <Previous  className="w-7 h-7" />
     </div>
   )
 
