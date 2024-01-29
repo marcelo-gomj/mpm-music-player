@@ -5,12 +5,8 @@ import { verifyFoldersAndUpdateDatabase } from "./Services/Metadata";
 import { checkPath } from "./utils/AlbumCover";
 import prisma from "./Services/Prisma";
 import OpenFolders from "./utils/OpenFoldersSystem";
-import { prisma as prismaClient } from "./Services/PrismaClient";
-import { init } from "./Services/test";
+// import { prisma as prismaClient } from "./Services/PrismaClient";
 
-prismaClient.$connect();
-
-init()
 
 const api = {
   electron: {
@@ -25,7 +21,7 @@ const api = {
 
 declare global {
   interface Window {
-    api : typeof api
+    api: typeof api
   }
 }
 

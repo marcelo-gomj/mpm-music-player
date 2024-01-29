@@ -12,19 +12,15 @@ import { useContext, useEffect, useState } from "react"
 import HeaderLibraryButton from "../LibraryComponents/HeaderLibraryButton"
 import { RouterContext } from "../../contexts/Router"
 import ListComponent from "../ListComponents/ListComponent"
+import FlexList from "../FlexList"
 
 const HEADERS_ITEMS = {
   "current": [
     CurrentAlbumIcon,
-    ""
-    // <ListComponent hasSubCategories={false} />
+    <FlexList />
   ],
   "album": [
     AlbumIcon,
-    // <ListContentLibrary 
-    //   path="album" 
-    //   title="Todos os albuns"
-    // />
     <ListComponent
       fieldsRoute={["album"]}
       hasSubCategories={false}

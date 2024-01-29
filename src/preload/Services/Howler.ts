@@ -1,4 +1,4 @@
-import { Howl } from "howler";
+import { Howl, Howler } from "howler";
 import config from "./ElectronStore";
 import React from "react";
 
@@ -27,7 +27,7 @@ const createAudioContext = (musicPath: string) => {
   return new Howl({
     src: musicPath,
     html5: true,
-    volume: 0.1
+    volume: 0.1,
   })
 }
 

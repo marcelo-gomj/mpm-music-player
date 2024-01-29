@@ -64,7 +64,6 @@ function PlayerProvider({ children }: PlayerProviderProps) {
       setCurrentMusic as any
     );
 
-
     setHowlerGlobal(() => context);
     setCurrentMusic(music);
     setQueueGlobal(queue);
