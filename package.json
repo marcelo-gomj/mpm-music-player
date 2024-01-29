@@ -50,6 +50,7 @@
     "@prisma/client": "^5.7.1",
     "@types/howler": "^2.2.11",
     "@types/ramda": "^0.29.9",
+    "@types/react-beautiful-dnd": "^13.1.8",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
     "howler": "^2.2.4",
@@ -58,8 +59,11 @@
     "node-id3": "^0.2.6",
     "ramda": "^0.29.1",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-viewport-list": "^7.1.2",
-    "sharp": "^0.33.1"
+    "sharp": "^0.33.2"
   }
 }
