@@ -1,7 +1,7 @@
 import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import path from 'path';
 import store from "electron-store";
-import { PrismaClient} from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 store.initRenderer();
 const prisma = new PrismaClient()
@@ -22,13 +22,12 @@ const createWindow = () => {
     // frame: false, 
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      sandbox : false,
+      sandbox: false,
       webSecurity: false
     },
   });
 
   prisma.$connect()
-  console.log("2. OK")
 
 
   // and load the index.html of the app.

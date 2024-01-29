@@ -3,6 +3,7 @@ import { __, addIndex, divide, groupBy, map, pipe, prop, reduce, sum, toPairs } 
 import { useMemo, memo } from "react";
 import MusicItem from "./MusicItem";
 import HeaderMusicList from "./HeaderMusicList";
+import SharePlaylist from "../../contexts/SharePlaylist";
 
 type ListMusicsProps = {
   musicsList: musics[],
@@ -41,7 +42,10 @@ function ListMusics({ musicsList, orderByAlbum, noHeaderAlbum }: ListMusicsProps
   type groupsType = typeof subListMusics[0];
   function listComponentByGroups([key, list]: groupsType, index: number) {
     return (
-      <section className="flex flex-col gap-6">
+      <section
+        key={key}
+        className="flex flex-col gap-6"
+      >
         <HeaderMusicList
           hasGroup={orderByAlbum}
           showHeader={checkHeaderAlbumList(index)}
@@ -52,6 +56,7 @@ function ListMusics({ musicsList, orderByAlbum, noHeaderAlbum }: ListMusicsProps
             {addIndex(map)(
               (music: musics, index: number) => (
                 <MusicItem
+                  handleMusicsState={() => { }}
                   index={index}
                   music={music}
                   key={music.id}

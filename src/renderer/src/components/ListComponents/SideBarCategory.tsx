@@ -50,7 +50,7 @@ function SideBarCategories({
 				</div>
 			</div>
 
-			<ul className="relative h-full w-full overflow-auto bar-scroll pr-2">
+			<ul className="relative h-full w-full text-mini overflow-auto bar-scroll pr-2">
 				{categories.map(checkSubCategoresAndCategories)}
 			</ul>
 		</div>
@@ -98,14 +98,15 @@ function CategoryItem({
 	const categoryId = hasSubCategories ? category[0] : category[field];
 	const categotyTitle = hasSubCategories ? categoryId : defaultTitleCheck(category, field)
 	const currentSelected = isCurrentSelected && isCurrentSelected[field] === categoryId;
-	const categoryOpened = hasSubCategories ? isCurrentSelected.artist === category[0] : false;
+	const categoryOpened = hasSubCategories ? isCurrentSelected?.artist === category[0] : false;
 
 	return (
 		<li
-			key={categoryId}
+			key={categotyTitle}
 			className=""
 		>
 			<div
+				key={1}
 				className="flex relative px-3 py-1.5 hover:bg-base-500 group items-center gap-4 rounded-md cursor-pointer"
 				onClick={handleClickCategory(categoryId)}
 			>
@@ -136,7 +137,7 @@ function CategoryItem({
 			</div>
 
 			{hasSubCategories && categoryOpened ?
-				<div className="py-1 my-2 mb-5 ml-5 rounded-r-md border-l-2 border-base-500">
+				<div key={2} className="py-1 my-0 mb-5 ml-5 rounded-r-md border-l-2 border-base-500">
 					{mapSubcategories(category[1])}
 				</div>
 				:
@@ -156,7 +157,7 @@ function CategoryItem({
 						onClick={getAlbumsByField(subcategory.album, "album")}
 						key={subcategory.id}
 					>
-						<DiscIcon className="w-5 h-5" />
+						<DiscIcon className="w-5 h-5 shrink-0" />
 						<p className="">{subcategory.album}</p>
 					</div>
 				)

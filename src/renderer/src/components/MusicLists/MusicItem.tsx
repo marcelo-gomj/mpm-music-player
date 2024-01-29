@@ -3,16 +3,21 @@ import PlayIcon from "../../assets/play.svg?react";
 import { last, range, split, update } from "ramda";
 import { useContext } from "react";
 import { PlayerContext } from "../../contexts/PlayerContext";
+import StarRating from "../StarRating";
+import { SharePlaylistContext } from "../../contexts/SharePlaylist";
 
 type MusicItemProps = {
   music: musics,
+  handleMusicsState: any,
   musics: musics[],
   index: number
 }
 
-function MusicItem({ music, index, musics }: MusicItemProps) {
+function MusicItem({ music, index, musics, handleMusicsState }: MusicItemProps) {
   const { playQueue, currentMusic, queueGlobal } = useContext(PlayerContext);
+  const { setStatePlaylist } = useContext(SharePlaylistContext);
   const isCurrentMusic = queueGlobal[currentMusic]?.id === music.id;
+
   return (
     <li
       key={music.id}
@@ -34,47 +39,18 @@ function MusicItem({ music, index, musics }: MusicItemProps) {
         </p>
       </div>
 
-      <div className="flex text-[1rem] h-full pl-2"
-        onClick={() => { }}
-      >
-        {showReatedStarIcons(music.id, music.reated, index)}
-      </div>
+      <StarRating
+        reated={music.reated}
+        index={index}
+      />
     </li>
   )
 
   function handlePlayMusic(musicIndex: number) {
     return () => playQueue(musicIndex, musics)
   }
-
-  function showReatedStarIcons(id: number, reated: number, musicIndex: number) {
-    return range(0, 5).map((_, index) => (
-      <span
-        className={`h-full ${index < reated ? "" : "opacity-15"}`}
-      // onClick={handleClickStarReated(id, index + 1, musicIndex)}
-      >
-        ★
-      </span>
-    ));
-  }
-
-
-  // function handleClickStarReated(
-  //   id: number,
-  //   reate: number,
-  //   musicIndex: number,
-  // ) {
-  //   const { setReatedMusic } = window.api.prisma;
-  //   return () => {
-  //     const music = musicsListSelected[musicIndex];
-  //     music.reated = reate;
-
-  //     handleMusicsSelected(
-  //       update(musicIndex, music, musicsListSelected)
-  //     );
-  //     setReatedMusic(id, reate);
-  //   };
-  // }
 }
+
 
 
 export default MusicItem;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ListResults from "./ListResults";
 import SideBarCategories from "./SideBarCategory";
 import { groupBy, head, prop, toPairs, or, reduce, map } from "ramda";
+import SharePlaylist from "../../contexts/SharePlaylist";
 
 export type fieldsKeys = ("album" | "artist" | "folder" | "genres")
 type ListComponentsProps = {
@@ -36,13 +37,17 @@ function ListComponent({ hasSubCategories, fieldsRoute, title }: ListComponentsP
         uniqueField={uniqueField}
         title={title}
       />
+      <SharePlaylist
+        setStatePlaylist={setMusicsListSelected}
+      >
+        <ListResults
+          selectedContentId={selectedContentId}
+          musicsListSelected={musicsListSelected}
+          albumResults={hasSubCategories}
+          handleMusicsSelected={setMusicsListSelected}
+        />
 
-      <ListResults
-        selectedContentId={selectedContentId}
-        musicsListSelected={musicsListSelected}
-        albumResults={hasSubCategories}
-        handleMusicsSelected={setMusicsListSelected}
-      />
+      </SharePlaylist>
     </section>
   )
 
@@ -60,7 +65,6 @@ function ListComponent({ hasSubCategories, fieldsRoute, title }: ListComponentsP
 
   function groupByCategoryType(albums: musics[]) {
 
-    console.log("FUNCTION GROUPER", albums)
     const defaultAlbum = head(albums);
 
     if (musicsListSelected === null) {
